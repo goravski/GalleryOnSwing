@@ -33,9 +33,8 @@ public class Pagination {
     }
 
     private static Map<String, Path> getMapPath() {
-        Map<String, Path> pathMap = fulPathLList.stream()
+        return fulPathLList.stream()
                 .collect(Collectors.toMap(path -> path.getFileName().toString(), path -> path));
-        return pathMap;
     }
 
     private static List<Path> getPathList() {

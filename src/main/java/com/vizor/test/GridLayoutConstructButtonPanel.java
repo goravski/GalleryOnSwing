@@ -1,13 +1,10 @@
 package com.vizor.test;
 
-import javafx.scene.control.ComboBox;
-
 import javax.swing.*;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class GridLayoutConstructButtonPanel {
@@ -20,13 +17,10 @@ public class GridLayoutConstructButtonPanel {
     public void textFieldPanelConstruct(JFrame frame) {
 
         List<Path> pathList = Pagination.fulPathLList;
-        List<String> fileName = pathList.stream()
-                .map(path -> path.getFileName().toString())
-                .collect(Collectors.toList());
         JPanel searchPanel = new JPanel();
-        JComboBox comboBox = new JComboBox(fileName.toArray());
+        JComboBox comboBox = new JComboBox(pathList.stream()
+                .map(path -> path.getFileName().toString()).toArray());
         comboBox.setEditable(true);
-        comboBox.setAlignmentY(Component.LEFT_ALIGNMENT);
         comboBox.addActionListener(e -> {
             String item = (String) comboBox.getSelectedItem();
             getRealSizeImage(Pagination.mapPath.get(item));

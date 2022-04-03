@@ -16,6 +16,7 @@ public class Main extends JFrame {
         startButton.addActionListener(e -> {
             frame.getContentPane().remove(0);
             GridLayoutConstructButtonPanel construct = new GridLayoutConstructButtonPanel();
+            construct.textFieldPanelConstruct(frame);
             construct.buttonsPanelConstruct(frame);
             construct.galleryButtonConstruct(frame);
             frame.setVisible(true);

@@ -7,15 +7,18 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 public class Pagination {
     private final int maxIconPerPage;
     private int currentPage;
-    private static final List<Path> fulPathLList = getPathList();
+    public static final List<Path> fulPathLList = getPathList();
     private static final int sizeList = fulPathLList.size();
-
+    public static final Map<String, Path> mapPath = new HashMap<>(getMapPath());
 
 
     public Pagination(int currentPage) {
@@ -29,6 +32,11 @@ public class Pagination {
         maxIconPerPage = maxColumns * maxRows;
     }
 
+    private static Map<String, Path> getMapPath() {
+        Map<String, Path> pathMap = fulPathLList.stream()
+                .collect(Collectors.toMap(path -> path.getFileName().toString(), path -> path));
+        return pathMap;
+    }
 
     private static List<Path> getPathList() {
         List<Path> pathList = new CopyOnWriteArrayList<>();
@@ -44,7 +52,7 @@ public class Pagination {
     public List<Path> getPageList() {
         int offset = (currentPage - 1) * maxIconPerPage;
         int onset;
-        if (currentPage < countTotalPage()){
+        if (currentPage < countTotalPage()) {
             onset = currentPage * maxIconPerPage;
         } else {
             onset = sizeList;
@@ -72,6 +80,6 @@ public class Pagination {
     private double resizeHeight(ImageIcon icon) {
         double height = icon.getIconHeight();
         double width = icon.getIconWidth();
-        return  height / width;
+        return height / width;
     }
 }

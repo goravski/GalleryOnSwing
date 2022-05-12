@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +39,7 @@ public class Pagination {
 
     private static List<Path> getPathList() {
         List<Path> pathList = new CopyOnWriteArrayList<>();
-        Path path = Paths.get("D:\\VisorGames\\dt-developer-test\\assets");
+        Path path = FileSystems.getDefault().getPath("assets\\").toAbsolutePath();
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
             directoryStream.forEach(pathList::add);
         } catch (IOException e) {
